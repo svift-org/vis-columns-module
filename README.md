@@ -1,2 +1,2 @@
-# vis-columns-module
-Column Chart
+# Column Chart
+## SVIFT.vis.columns
