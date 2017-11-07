@@ -74,7 +74,7 @@ SVIFT.vis.columns = (function (data, container) {
       .attr('transform','translate(0,'+ vizTranslate  +')')
 
     var windowWidth = module.container.node().offsetWidth - module.config.margin.left - module.config.margin.right;
-    var height = module.container.node().offsetHeight - module.config.margin.top - module.config.margin.bottom - module.config.bottomTextHeight - module.config.topTextHeight -barsNumberHeigth - barsTextHeigth -textPadding-textPadding - vizTranslate- 20; //add 20 to correct wrong calculations
+    var height = module.container.node().offsetHeight - module.config.margin.top - module.config.margin.bottom - module.config.bottomTextHeight - module.config.topTextHeight -barsNumberHeigth - barsTextHeigth - vizTranslate;
 
     module.d3config.x.range([0,windowWidth]);
     module.d3config.y.range([height,0]);
