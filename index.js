@@ -30,13 +30,13 @@ SVIFT.vis.columns = (function (data, container) {
 
     module.d3config.barsText = module.d3config.barsContainer.append("text")
       .text(function(d) { return d[0] })
-      .attr("font-family", data.style.font)
+      .attr("font-family", data.style.fontLables)
       .attr("fill", data.style.color.second)
       .attr("text-anchor", "middle")
 
     module.d3config.barsNumber = module.d3config.barsContainer.append("text")
       .text(function(d) { return d[1] })
-      .attr("font-family", data.style.font)
+      .attr("font-family", data.style.fontLables)
       .attr("fill", data.style.color.second)
       .attr("text-anchor", "middle")
 
@@ -67,7 +67,7 @@ SVIFT.vis.columns = (function (data, container) {
 
     var barsNumberHeigth = module.d3config.barsNumber._groups[0][0].getBBox().height;
     var barsTextHeigth = module.d3config.barsText._groups[0][0].getBBox().height;
-    var textPadding = 15;
+    var textPadding = 8;
     var vizTranslate = barsNumberHeigth + textPadding;
 
     module.d3config.barsContainer 
@@ -87,13 +87,13 @@ SVIFT.vis.columns = (function (data, container) {
     module.d3config.barsText
       .attr("x", function(d){ return module.d3config.x(d[0]) + (module.d3config.x.bandwidth() / 2) })
       .attr("y",function(d){ return this.getBBox().height + height + textPadding})
-      .attr("font-size", "1.5em")
+      .attr("font-size", "1em")
       .attr("opacity", 0);
 
     module.d3config.barsNumber
       .attr("x", function(d){ return module.d3config.x(d[0]) + (module.d3config.x.bandwidth() / 2) })
       .attr("y", function(d){ return module.d3config.y(d[1]) - textPadding }) 
-      .attr("font-size", "1.5em")
+      .attr("font-size", "1em")
       .attr("opacity", 0);
 
     data.data.data.forEach(function(d,i){
