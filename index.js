@@ -16,10 +16,6 @@ SVIFT.vis.columns = (function (data, container) {
 
   module.setup = function () {
 
-    module.d3config.x = d3.scaleBand().padding(0.1).domain(data.data.data.map(function(d) {return d[0]; }));
-    module.d3config.y = d3.scaleLinear().domain([0, d3.max(data.data.data, function(d){return d[1];})]);
-
-
     module.d3config.barsContainer = module.config.vizContainer.append('g').selectAll("g")
       .data(data.data.data)
       .enter().append("g")
@@ -65,6 +61,9 @@ SVIFT.vis.columns = (function (data, container) {
 
   module.resize = function () {
 
+    module.d3config.x = d3.scaleBand().padding(0.1).domain(data.data.data.map(function(d) {return d[0]; }));
+    module.d3config.y = d3.scaleLinear().domain([0, d3.max(data.data.data, function(d){return d[1];})]);
+    
     var barsNumberHeigth = module.d3config.barsNumber._groups[0][0].getBBox().height;
     var barsTextHeigth = module.d3config.barsText._groups[0][0].getBBox().height;
     var textPadding = 8;
