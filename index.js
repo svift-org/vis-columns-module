@@ -7,7 +7,7 @@ SVIFT.vis.columns = (function (data, container) {
     yInterpolate:[], 
     hInterpolate:[],
     oInterpolate:[],
-    steps:data.data.data.length,
+    steps:data.data.data[0].length,
     animation:{
       duration: 3000,
       barPartPercent: .8
@@ -17,7 +17,7 @@ SVIFT.vis.columns = (function (data, container) {
   module.setup = function () {
 
     module.d3config.barsContainer = module.config.vizContainer.append('g').selectAll("g")
-      .data(data.data.data)
+      .data(data.data.data[0])
       .enter().append("g")
 
     module.d3config.bars = module.d3config.barsContainer.append('rect')
@@ -61,8 +61,8 @@ SVIFT.vis.columns = (function (data, container) {
 
   module.resize = function () {
 
-    module.d3config.x = d3.scaleBand().padding(0.1).domain(data.data.data.map(function(d) {return d[0]; }));
-    module.d3config.y = d3.scaleLinear().domain([0, d3.max(data.data.data, function(d){return d[1];})]);
+    module.d3config.x = d3.scaleBand().padding(0.1).domain(data.data.data[0].map(function(d) {return d[0]; }));
+    module.d3config.y = d3.scaleLinear().domain([0, d3.max(data.data.data[0], function(d){return d[1];})]);
     
     var barsNumberHeigth = module.d3config.barsNumber._groups[0][0].getBBox().height;
     var barsTextHeigth = module.d3config.barsText._groups[0][0].getBBox().height;
@@ -95,7 +95,7 @@ SVIFT.vis.columns = (function (data, container) {
       .attr("font-size", "1em")
       .attr("opacity", 0);
 
-    data.data.data.forEach(function(d,i){
+    data.data.data[0].forEach(function(d,i){
       module.d3config.yInterpolate[i] = d3.interpolate(height, module.d3config.y(d[1]));
       module.d3config.hInterpolate[i] = d3.interpolate(0, height-module.d3config.y(d[1]));
       module.d3config.oInterpolate[i] = d3.interpolate(0, 1);

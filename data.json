@@ -18,10 +18,11 @@
     "data":{
       "columns":["Text","Wert"],
       "types":["string","int"],
-      "data":[["A", 33], ["B", 220], ["C", 200], ["D", 34], ["E", 34]],
+      "data":[[["A", 33], ["B", 220], ["C", 200], ["D", 34], ["E", 34]]],
       "title": "Title here",
       "subTitle": "some sub title",
       "attribution": "created with svift",
       "source": "source: svift team"
     }
   }
+
