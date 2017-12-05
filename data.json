@@ -22,7 +22,8 @@
       "title": "Title here",
       "subTitle": "some sub title",
       "attribution": "created with svift",
-      "source": "source: svift team"
+      "source": "source: svift team",
+      "format":"single-set"
     }
   }
 
