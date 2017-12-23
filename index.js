@@ -1,14 +1,13 @@
 SVIFT.vis.columns = (function (data, container) {
  
   var module = SVIFT.vis.base(data, container);
-  var firstDataKey = Object.keys(data.data.data)[0];
  
   module.d3config = {
     ease:d3.easeQuadOut, 
     yInterpolate:[], 
     hInterpolate:[],
     oInterpolate:[],
-    steps:data.data.data[firstDataKey].length,
+    steps:data.data.data.length,
     animation:{
       duration: 3000,
       barPartPercent: .8
@@ -18,7 +17,7 @@ SVIFT.vis.columns = (function (data, container) {
   module.setup = function () {
 
     module.d3config.barsContainer = module.config.vizContainer.append('g').selectAll("g")
-      .data(data.data.data[firstDataKey])
+      .data(data.data.data)
       .enter().append("g")
 
     module.d3config.bars = module.d3config.barsContainer.append('rect')
@@ -26,13 +25,13 @@ SVIFT.vis.columns = (function (data, container) {
       .style('fill',data.style.color.main)
 
     module.d3config.barsText = module.d3config.barsContainer.append("text")
-      .text(function(d) { return d[0] })
+      .text(function(d) { return d.label })
       .attr("font-family", data.style.fontLables)
       .attr("fill", data.style.color.second)
       .attr("text-anchor", "middle")
 
     module.d3config.barsNumber = module.d3config.barsContainer.append("text")
-      .text(function(d) { return d[1] })
+      .text(function(d) { return d.data[0] })
       .attr("font-family", data.style.fontLables)
       .attr("fill", data.style.color.second)
       .attr("text-anchor", "middle")
@@ -62,8 +61,8 @@ SVIFT.vis.columns = (function (data, container) {
 
   module.resize = function () {
 
-    module.d3config.x = d3.scaleBand().padding(0.1).domain(data.data.data[firstDataKey].map(function(d) {return d[0]; }));
-    module.d3config.y = d3.scaleLinear().domain([0, d3.max(data.data.data[firstDataKey], function(d){return d[1];})]);
+    module.d3config.x = d3.scaleBand().padding(0.1).domain(data.data.data.map(function(d) {return d.label; }));
+    module.d3config.y = d3.scaleLinear().domain([0, d3.max(data.data.data, function(d){return d.data[0];})]);
     
     var barsNumberHeigth = module.d3config.barsNumber._groups[0][0].getBBox().height;
     var barsTextHeigth = module.d3config.barsText._groups[0][0].getBBox().height;
@@ -80,25 +79,25 @@ SVIFT.vis.columns = (function (data, container) {
     module.d3config.y.range([height,0]);
 
     module.d3config.bars
-      .attr('x', function(d){ return module.d3config.x(d[0]) })
+      .attr('x', function(d){ return module.d3config.x(d.label) })
       .attr("width", module.d3config.x.bandwidth())
       .attr("opacity", 0);
 
     module.d3config.barsText
-      .attr("x", function(d){ return module.d3config.x(d[0]) + (module.d3config.x.bandwidth() / 2) })
+      .attr("x", function(d){ return module.d3config.x(d.label) + (module.d3config.x.bandwidth() / 2) })
       .attr("y",function(d){ return this.getBBox().height + height + textPadding})
       .attr("font-size", "1em")
       .attr("opacity", 0);
 
     module.d3config.barsNumber
-      .attr("x", function(d){ return module.d3config.x(d[0]) + (module.d3config.x.bandwidth() / 2) })
-      .attr("y", function(d){ return module.d3config.y(d[1]) - textPadding }) 
+      .attr("x", function(d){ return module.d3config.x(d.label) + (module.d3config.x.bandwidth() / 2) })
+      .attr("y", function(d){ return module.d3config.y(d.data[0]) - textPadding }) 
       .attr("font-size", "1em")
       .attr("opacity", 0);
 
-    data.data.data["set1"].forEach(function(d,i){
-      module.d3config.yInterpolate[i] = d3.interpolate(height, module.d3config.y(d[1]));
-      module.d3config.hInterpolate[i] = d3.interpolate(0, height-module.d3config.y(d[1]));
+    data.data.data.forEach(function(d,i){
+      module.d3config.yInterpolate[i] = d3.interpolate(height, module.d3config.y(d.data[0]));
+      module.d3config.hInterpolate[i] = d3.interpolate(0, height-module.d3config.y(d.data[0]));
       module.d3config.oInterpolate[i] = d3.interpolate(0, 1);
     });
 
@@ -106,46 +105,48 @@ SVIFT.vis.columns = (function (data, container) {
 
 
 
+  //One bar animation
   var barAnimation = function(index){  
 
-    //animate one bar
     return function(t) { 
 
       d3.select(module.d3config.bars._groups[0][index])
-        .attr('y',      function(d,i){ return module.d3config.yInterpolate[index](module.d3config.ease(t)); })
-        .attr('height', function(d,i){ return module.d3config.hInterpolate[index](module.d3config.ease(t)); })
-        .attr('opacity', function(d,i){ return module.d3config.oInterpolate[index](module.d3config.ease(t)); });
+        .attr('y',      function(){ return module.d3config.yInterpolate[index](module.d3config.ease(t)); })
+        .attr('height', function(){ return module.d3config.hInterpolate[index](module.d3config.ease(t)); })
+        .attr('opacity', function(){ return module.d3config.oInterpolate[index](module.d3config.ease(t)); });
 
     };
 
   };
 
+  //Add bar animations
   for (var i = 0; i < module.d3config.steps; i++) {
     module["drawBar"+i] = barAnimation(i)
   }
 
 
-  //Add animations
-  var lableAnimation = function(index){  
+  //One label animation
+  var labelAnimation = function(index){  
 
     return function(t) { 
 
       d3.select(module.d3config.barsText._groups[0][index])
-        .attr('opacity', function(d,i){ return module.d3config.oInterpolate[index](module.d3config.ease(t)); });
+        .attr('opacity', function(){ return module.d3config.oInterpolate[index](module.d3config.ease(t)); });
 
       d3.select(module.d3config.barsNumber._groups[0][index])
-        .attr('opacity', function(d,i){ return module.d3config.oInterpolate[index](module.d3config.ease(t)); });
+        .attr('opacity', function(){ return module.d3config.oInterpolate[index](module.d3config.ease(t)); });
 
     };
 
   };
 
+  //Add label animations
   for (var i = 0; i < module.d3config.steps; i++) {
-    module["drawBarLable"+i] = lableAnimation(i)
+    module["drawBarLable"+i] = labelAnimation(i)
   }
 
 
 
+  return module;
 
-return module;
- });
+});
