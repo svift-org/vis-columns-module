@@ -16,7 +16,7 @@ SVIFT.vis.columns = (function (data, container) {
 
   module.setup = function () {
 
-    module.d3config.barsContainer = module.config.vizContainer.append('g').selectAll("g")
+    module.d3config.barsContainer = module.vizContainer.append('g').selectAll("g")
       .data(data.data.data)
       .enter().append("g")
 
