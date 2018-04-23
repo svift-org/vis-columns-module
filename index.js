@@ -23,7 +23,7 @@ SVIFT.vis.columns = (function (data, container) {
     module.d3config.bars = module.d3config.barsContainer.append('rect')
       .style('stroke','transparent')
       .style('fill',data.style.color.main)
-      .style('opacity',0);
+      .style('opacity',1);
 
     module.d3config.barsText = module.d3config.barsContainer.append("text")
       .text(function(d) { return d.label })
@@ -31,7 +31,7 @@ SVIFT.vis.columns = (function (data, container) {
       .attr("fill", data.style.color.second)
       .attr("text-anchor", "middle")
       .attr("font-size", "1em")
-      .style('opacity',0);
+      .style('opacity',1);
 
     module.d3config.barsNumber = module.d3config.barsContainer.append("text")
       .text(function(d) { return d.data[0] })
@@ -39,8 +39,7 @@ SVIFT.vis.columns = (function (data, container) {
       .attr("fill", data.style.color.second)
       .attr("text-anchor", "middle")
       .attr("font-size", "1em")
-      .style('opacity',0);
-
+      .style('opacity',1);
 
     //Add animations
     var barchartTime = module.d3config.animation.duration * module.d3config.animation.barPartPercent;
@@ -102,7 +101,6 @@ SVIFT.vis.columns = (function (data, container) {
     });
 
   };
-
 
 
   //One bar animation
