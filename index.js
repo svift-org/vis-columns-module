@@ -23,18 +23,23 @@ SVIFT.vis.columns = (function (data, container) {
     module.d3config.bars = module.d3config.barsContainer.append('rect')
       .style('stroke','transparent')
       .style('fill',data.style.color.main)
+      .style('opacity',0);
 
     module.d3config.barsText = module.d3config.barsContainer.append("text")
       .text(function(d) { return d.label })
       .attr("font-family", data.style.fontLables)
       .attr("fill", data.style.color.second)
       .attr("text-anchor", "middle")
+      .attr("font-size", "1em")
+      .style('opacity',0);
 
     module.d3config.barsNumber = module.d3config.barsContainer.append("text")
       .text(function(d) { return d.data[0] })
       .attr("font-family", data.style.fontLables)
       .attr("fill", data.style.color.second)
       .attr("text-anchor", "middle")
+      .attr("font-size", "1em")
+      .style('opacity',0);
 
 
     //Add animations
@@ -70,9 +75,7 @@ SVIFT.vis.columns = (function (data, container) {
     var vizTranslate = barsNumberHeigth + textPadding;
 
     module.d3config.barsContainer 
-      .attr('transform','translate(0,'+ vizTranslate  +')')
-
-    console.log(module.vizSize.height);
+      .attr('transform','translate(0,'+ vizTranslate  +')');
 
     var windowWidth = module.vizSize.width;
     var height = module.vizSize.height-vizTranslate;
@@ -82,20 +85,15 @@ SVIFT.vis.columns = (function (data, container) {
 
     module.d3config.bars
       .attr('x', function(d){ return module.d3config.x(d.label) })
-      .attr("width", module.d3config.x.bandwidth())
-      .attr("opacity", 0);
+      .attr("width", module.d3config.x.bandwidth());
 
     module.d3config.barsText
       .attr("x", function(d){ return module.d3config.x(d.label) + (module.d3config.x.bandwidth() / 2) })
-      .attr("y",function(d){ return this.getBBox().height + height + textPadding})
-      .attr("font-size", "1em")
-      .attr("opacity", 0);
+      .attr("y",function(d){ return this.getBBox().height + height + textPadding});
 
     module.d3config.barsNumber
       .attr("x", function(d){ return module.d3config.x(d.label) + (module.d3config.x.bandwidth() / 2) })
-      .attr("y", function(d){ return module.d3config.y(d.data[0]) - textPadding }) 
-      .attr("font-size", "1em")
-      .attr("opacity", 0);
+      .attr("y", function(d){ return module.d3config.y(d.data[0]) - textPadding });
 
     data.data.data.forEach(function(d,i){
       module.d3config.yInterpolate[i] = d3.interpolate(height, module.d3config.y(d.data[0]));
