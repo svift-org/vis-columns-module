@@ -100,6 +100,11 @@ SVIFT.vis.columns = (function (data, container) {
       module.d3config.oInterpolate[i] = d3.interpolate(0, 1);
     });
 
+    if(module.playHead == module.playTime){
+        module.goTo(1);
+        module.pause();
+    }
+
   };
 
 
