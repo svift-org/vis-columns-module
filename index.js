@@ -72,6 +72,8 @@ SVIFT.vis.columns = (function (data, container) {
     module.d3config.barsContainer 
       .attr('transform','translate(0,'+ vizTranslate  +')')
 
+    console.log(module.vizSize.height);
+
     var windowWidth = module.vizSize.width;
     var height = module.vizSize.height-vizTranslate;
 
