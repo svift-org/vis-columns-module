@@ -61,7 +61,7 @@ SVIFT.vis.columns = (function (data, container) {
 
   module.resize = function () {
 
-    module.d3config.x = d3.scaleBand().padding(0.1).domain(data.data.data.map(function(d) {return d.label; }));
+    module.d3config.x = d3.scaleBand().padding(0.1).domain(data.data.data.map(function(d,i) {return i; }));
     module.d3config.y = d3.scaleLinear().domain([0, d3.max(data.data.data, function(d){return d.data[0];})]);
     
     var barsNumberHeigth = module.d3config.barsNumber._groups[0][0].getBBox().height;
@@ -79,18 +79,18 @@ SVIFT.vis.columns = (function (data, container) {
     module.d3config.y.range([height,0]);
 
     module.d3config.bars
-      .attr('x', function(d){ return module.d3config.x(d.label) })
+      .attr('x', function(d,i){ return module.d3config.x(i) })
       .attr("width", module.d3config.x.bandwidth())
       .attr("opacity", 0);
 
     module.d3config.barsText
-      .attr("x", function(d){ return module.d3config.x(d.label) + (module.d3config.x.bandwidth() / 2) })
+      .attr("x", function(d,i){ return module.d3config.x(i) + (module.d3config.x.bandwidth() / 2) })
       .attr("y",function(d){ return this.getBBox().height + height + textPadding})
       .attr("font-size", "1em")
       .attr("opacity", 0);
 
     module.d3config.barsNumber
-      .attr("x", function(d){ return module.d3config.x(d.label) + (module.d3config.x.bandwidth() / 2) })
+      .attr("x", function(d,i){ return module.d3config.x(i) + (module.d3config.x.bandwidth() / 2) })
       .attr("y", function(d){ return module.d3config.y(d.data[0]) - textPadding }) 
       .attr("font-size", "1em")
       .attr("opacity", 0);
