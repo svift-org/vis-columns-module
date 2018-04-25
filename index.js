@@ -27,13 +27,13 @@ SVIFT.vis.columns = (function (data, container) {
 
     module.d3config.barsText = module.d3config.barsContainer.append("text")
       .text(function(d) { return d.label })
-      .attr('class', 'visText') //bold
+      .attr('class', 'labelText') //bold
       .attr("text-anchor", "middle")
       .style('opacity',0);
 
     module.d3config.barsNumber = module.d3config.barsContainer.append("text")
       .text(function(d) { return d.data[0] })
-      .attr('class', 'visText')
+      .attr('class', 'labelNumber')
       .attr("text-anchor", "middle")
       .style('opacity',0);
 
