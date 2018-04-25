@@ -29,13 +29,13 @@ SVIFT.vis.columns = (function (data, container) {
       .text(function(d) { return d.label })
       .attr('class', 'visText bold')
       .attr("text-anchor", "middle")
-      .style('opacity',1);
+      .style('opacity',0);
 
     module.d3config.barsNumber = module.d3config.barsContainer.append("text")
       .text(function(d) { return d.data[0] })
       .attr('class', 'visText')
       .attr("text-anchor", "middle")
-      .style('opacity',1);
+      .style('opacity',0);
 
     //Add animations
     var barchartTime = module.d3config.animation.duration * module.d3config.animation.barPartPercent;
@@ -143,10 +143,10 @@ SVIFT.vis.columns = (function (data, container) {
     return function(t) { 
 
       d3.select(module.d3config.barsText._groups[0][index])
-        .attr('opacity', function(){ return module.d3config.oInterpolate[index](module.d3config.ease(t)); });
+        .style('opacity', function(){ return module.d3config.oInterpolate[index](module.d3config.ease(t)); });
 
       d3.select(module.d3config.barsNumber._groups[0][index])
-        .attr('opacity', function(){ return module.d3config.oInterpolate[index](module.d3config.ease(t)); });
+        .style('opacity', function(){ return module.d3config.oInterpolate[index](module.d3config.ease(t)); });
 
     };
 
@@ -156,7 +156,6 @@ SVIFT.vis.columns = (function (data, container) {
   for (var i = 0; i < module.d3config.steps; i++) {
     module["drawBarLable"+i] = labelAnimation(i)
   }
-
 
 
   return module;
