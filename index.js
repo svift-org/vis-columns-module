@@ -62,8 +62,8 @@ SVIFT.vis.columns = (function (data, container) {
   module.update = function(){
     module.d3config.barsContainer.data(data.data.data).enter();
     module.d3config.bars.datum(function(d){return d;});
-    module.d3config.barsText.datum(function(d){return d;});
-    module.d3config.barsNumber.datum(function(d){return d;});
+    module.d3config.barsText.datum(function(d){return d;}).text(function(d) { return d.label });
+    module.d3config.barsNumber.datum(function(d){return d;}).text(function(d) { return d.data[0] });
   };
 
   module.resize = function () {
