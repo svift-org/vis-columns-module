@@ -31,6 +31,7 @@ SVIFT.vis.columns = (function (data, container) {
       .attr("fill", data.style.color.second)
       .attr("text-anchor", "middle")
       .attr("font-size", "1em")
+      .attr('font-weight','bold')
       .style('opacity',1);
 
     module.d3config.barsNumber = module.d3config.barsContainer.append("text")
@@ -70,7 +71,7 @@ SVIFT.vis.columns = (function (data, container) {
     
     var barsNumberHeigth = module.d3config.barsNumber._groups[0][0].getBBox().height;
     var barsTextHeigth = module.d3config.barsText._groups[0][0].getBBox().height;
-    var textPadding = 8;
+    var textPadding = 6;
     var vizTranslate = barsNumberHeigth + textPadding;
 
     module.d3config.barsContainer 
