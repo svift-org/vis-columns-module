@@ -27,7 +27,7 @@ SVIFT.vis.columns = (function (data, container) {
 
     module.d3config.barsText = module.d3config.barsContainer.append("text")
       .text(function(d) { return d.label })
-      .attr('class', 'visText bold')
+      .attr('class', 'visText') //bold
       .attr("text-anchor", "middle")
       .style('opacity',0);
 
