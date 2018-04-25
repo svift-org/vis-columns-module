@@ -89,7 +89,7 @@ SVIFT.vis.columns = (function (data, container) {
 
     module.d3config.barsText
       .attr("x", function(d){ return module.d3config.x(d.label) + (module.d3config.x.bandwidth() / 2) })
-      .attr("y",function(d){ return this.getBBox().height + height + textPadding});
+      .attr("y",function(d){ return this.getBBox().height + height});
 
     module.d3config.barsNumber
       .attr("x", function(d){ return module.d3config.x(d.label) + (module.d3config.x.bandwidth() / 2) })
