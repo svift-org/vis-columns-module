@@ -18,7 +18,7 @@ SVIFT.vis.columns = (function (data, container) {
 
     module.d3config.barsContainer = module.vizContainer.append('g').selectAll("g")
       .data(data.data.data)
-      .enter().append("g")
+      .enter().append("g");
 
     module.d3config.bars = module.d3config.barsContainer.append('rect')
       .style('stroke','transparent')
@@ -57,6 +57,13 @@ SVIFT.vis.columns = (function (data, container) {
       module.timeline['animationBarText'+i] = {start:startTime, end:endTime, func:module["drawBarLable"+i]};
     }
 
+  };
+
+  module.update = function(){
+    module.d3config.barsContainer.data(data.data.data).enter();
+    module.d3config.bars.datum(function(d){return d;});
+    module.d3config.barsText.datum(function(d){return d;});
+    module.d3config.barsNumber.datum(function(d){return d;});
   };
 
   module.resize = function () {
