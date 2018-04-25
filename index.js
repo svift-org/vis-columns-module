@@ -22,24 +22,19 @@ SVIFT.vis.columns = (function (data, container) {
 
     module.d3config.bars = module.d3config.barsContainer.append('rect')
       .style('stroke','transparent')
-      .style('fill',data.style.color.main)
+      .attr('class', 'visFill')
       .style('opacity',1);
 
     module.d3config.barsText = module.d3config.barsContainer.append("text")
       .text(function(d) { return d.label })
-      .attr("font-family", data.style.fontLables)
-      .attr("fill", data.style.color.second)
+      .attr('class', 'visText bold')
       .attr("text-anchor", "middle")
-      .attr("font-size", "1em")
-      .attr('font-weight','bold')
       .style('opacity',1);
 
     module.d3config.barsNumber = module.d3config.barsContainer.append("text")
       .text(function(d) { return d.data[0] })
-      .attr("font-family", data.style.fontLables)
-      .attr("fill", data.style.color.second)
+      .attr('class', 'visText')
       .attr("text-anchor", "middle")
-      .attr("font-size", "1em")
       .style('opacity',1);
 
     //Add animations
