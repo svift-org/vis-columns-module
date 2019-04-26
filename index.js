@@ -1,6 +1,4 @@
 SVIFT.vis.columns = (function (data, container) {
-
-  console.log("coll",data)
  
   var module = SVIFT.vis.base(data, container);
  
