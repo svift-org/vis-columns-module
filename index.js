@@ -1,4 +1,6 @@
 SVIFT.vis.columns = (function (data, container) {
+
+  console.log("coll",data)
  
   var module = SVIFT.vis.base(data, container);
  
@@ -11,7 +13,8 @@ SVIFT.vis.columns = (function (data, container) {
     animation:{
       duration: 3000,
       barPartPercent: .8
-    }
+    },
+    showNumberLabels: data.data.showNumberLabels
   };
 
   module.setup = function () {
@@ -145,8 +148,13 @@ SVIFT.vis.columns = (function (data, container) {
       d3.select(module.d3config.barsText._groups[0][index])
         .style('opacity', function(){ return module.d3config.oInterpolate[index](module.d3config.ease(t)); });
 
+
+      if(module.d3config.showNumberLabels){
       d3.select(module.d3config.barsNumber._groups[0][index])
         .style('opacity', function(){ return module.d3config.oInterpolate[index](module.d3config.ease(t)); });
+      }
+
+
 
     };
 
